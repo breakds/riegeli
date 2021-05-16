@@ -7,7 +7,7 @@ target_sources(status
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/status.h>
     PRIVATE errno_mapping.cc status.cc)
 target_link_libraries(status
-    PRIVATE absl::status absl::strings)
+    PRIVATE absl::status absl::strings absl::cord)
 
 
 add_library(base STATIC)
@@ -36,7 +36,8 @@ target_sources(base
 
     PRIVATE base.cc memory.cc object.cc)
 target_link_libraries(base
-    PRIVATE absl::base absl::status absl::strings absl::meta)
+    PRIVATE absl::core_headers absl::base
+    absl::status absl::strings absl::type_traits absl::cord)
 
 
 add_library(intrusive_ref_count INTERFACE)
