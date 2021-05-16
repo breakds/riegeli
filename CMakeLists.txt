@@ -71,7 +71,7 @@ if(${PROJECT_NAME}_INSTALL)
         NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 
     install(
-        TARGETS status
+        TARGETS status base
         EXPORT ${PROJECT_NAME}_Targets
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
 
