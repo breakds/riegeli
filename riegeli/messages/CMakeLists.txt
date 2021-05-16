@@ -1,4 +1,4 @@
-add_library(message_serialize STATIC)
+add_library(message_serialize SHARED)
 target_sources(message_serialize
     PUBLIC
     $<INSTALL_INTERFACE:message_serialize.h>

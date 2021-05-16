@@ -1,4 +1,4 @@
-add_library(writer STATIC)
+add_library(writer SHARED)
 target_sources(writer
     PUBLIC
     $<INSTALL_INTERFACE:writer.h>
@@ -9,7 +9,7 @@ target_link_libraries(writer
     PRIVATE absl::status absl::base absl::strings)
 
 
-add_library(chain_writer STATIC)
+add_library(chain_writer SHARED)
 target_sources(chain_writer
     PUBLIC
     $<INSTALL_INTERFACE:chain_writer.h>
@@ -20,7 +20,7 @@ target_link_libraries(chain_writer
     PRIVATE absl::base absl::strings absl::cord absl::span)
 
 
-add_library(cord_writer STATIC)
+add_library(cord_writer SHARED)
 target_sources(cord_writer
     PUBLIC
     $<INSTALL_INTERFACE:cord_writer.h>
@@ -31,7 +31,7 @@ target_link_libraries(cord_writer
     PRIVATE absl::core_headers absl::strings absl::cord basl::optional)
 
 
-add_library(string_writer STATIC)
+add_library(string_writer SHARED)
 target_sources(string_writer
     PUBLIC
     $<INSTALL_INTERFACE:string_writer.h>

@@ -1,4 +1,4 @@
-add_library(status STATIC)
+add_library(status SHARED)
 target_sources(status
     PUBLIC
     $<INSTALL_INTERFACE:errno_mapping.h>
@@ -10,7 +10,7 @@ target_link_libraries(status
     PRIVATE absl::status absl::strings absl::cord)
 
 
-add_library(base STATIC)
+add_library(base SHARED)
 target_sources(base
     PUBLIC
     $<INSTALL_INTERFACE:base.h>
@@ -44,7 +44,7 @@ add_library(intrusive_ref_count INTERFACE)
 target_sources(intrusive_ref_count INTERFACE intrusive_ref_count.h)
     
 
-add_library(memory_estimator STATIC)
+add_library(memory_estimator SHARED)
 target_sources(memory_estimator
     PUBLIC
     $<INSTALL_INTERFACE:memory_estimator.h>
@@ -54,7 +54,7 @@ target_link_libraries(memory_estimator
     PRIVATE absl::container)
 
 
-add_library(chain STATIC)
+add_library(chain SHARED)
 target_sources(chain
     PUBLIC
     $<INSTALL_INTERFACE:chain.h>
@@ -65,7 +65,7 @@ target_link_libraries(chain
     PRIVATE absl::base absl::container absl::meta absl::strings)
 
 
-add_library(options_parser STATIC)
+add_library(options_parser SHARED)
 target_sources(options_parser
     PUBLIC
     $<INSTALL_INTERFACE:options_parser.h>
@@ -76,7 +76,7 @@ target_link_libraries(options_parser
     PRIVATE absl::base absl::status absl::strings)
 
 
-add_library(parallelism STATIC)
+add_library(parallelism SHARED)
 target_sources(parallelism
     PUBLIC
     $<INSTALL_INTERFACE:parallelism.h>
@@ -87,7 +87,7 @@ target_link_libraries(parallelism
     PRIVATE absl::base absl::time absl::synchronization)
 
 
-add_library(buffer STATIC)
+add_library(buffer SHARED)
 target_sources(buffer
     PUBLIC
     $<INSTALL_INTERFACE:buffer.h>
