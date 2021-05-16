@@ -32,6 +32,9 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake") # Make our cmak
 
 find_package(absl REQUIRED)
 
+find_package(Protobuf 3.0 REQUIRED)
+include_directories(${Protobuf_INCLUDE_DIRS})
+
 ###############
 ##  Options  ##
 ###############
