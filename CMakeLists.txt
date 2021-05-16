@@ -39,6 +39,9 @@ find_package(absl REQUIRED)
 option(${PROJECT_NAME}_INSTALL
     "Should ${PROJECT_NAME} be added to the install list? Useful if included using add_subdirectory." ON)
 
+set(${PROJECT_NAME}_INSTALL_CMAKEDIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
+    CACHE STRING "Path to install ${PROJECT_NAME} Config*.cmake files to.")
+
 ###############
 ##  Targets  ##
 ###############
@@ -47,3 +50,55 @@ option(${PROJECT_NAME}_INSTALL
 include_directories(${PROJECT_SOURCE_DIR})
 
 add_subdirectory(riegeli)
+
+###############
+## Packaging ##
+###############
+
+if(${PROJECT_NAME}_INSTALL)
+    # Use version checking helper provided by CMake so that users can
+    # safely use a version number in their find_package calls
+    write_basic_package_version_file(
+        ${PROJECT_NAME}ConfigVersion.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion)
+
+    configure_package_config_file(
+        ${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in
+        ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+        INSTALL_DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKEDIR}
+        NO_SET_AND_CHECK_MACRO
+        NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+
+    install(
+        TARGETS status
+        EXPORT ${PROJECT_NAME}_Targets
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME})
+
+    install(DIRECTORY riegeli/base
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/riegeli
+        FILES_MATCHING PATTERN *.h)
+
+    install(DIRECTORY riegeli/records
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/riegeli
+        FILES_MATCHING PATTERN *.h)
+
+    # This time, install all the exported targets under the
+    # ${PROJECT_NAME}_Targets name.
+    install(
+        EXPORT ${PROJECT_NAME}_Targets
+        NAMESPACE ${PROJECT_NAME}::
+        FILE ${PROJECT_NAME}Targets.cmake
+        DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKEDIR})
+
+    # So far we only installed the exported targets, now install the package config files.
+    #
+    # If you do not list headers in the PUBLIC_HEADER property, you will need to copy them using
+    # `install(FILES)` or `install(DIRECTORY)` too.
+    #
+    # In that case, you can use CMAKE_INSTALL_INCLUDEDIR as the base destination path.
+    install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+        DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKEDIR})
+endif()
