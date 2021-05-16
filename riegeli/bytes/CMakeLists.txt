@@ -28,7 +28,7 @@ target_sources(cord_writer
     PRIVATE cord_writer.cc)
 target_link_libraries(cord_writer
     PUBLIC writer base buffer chain
-    PRIVATE absl::core_headers absl::strings absl::cord basl::optional)
+    PRIVATE absl::core_headers absl::strings absl::cord absl::optional)
 
 
 add_library(string_writer SHARED)
@@ -39,4 +39,4 @@ target_sources(string_writer
     PRIVATE string_writer.cc)
 target_link_libraries(string_writer
     PUBLIC writer base chain
-    PRIVATE absl::core_headers absl::strings absl::cord basl::optional)
+    PRIVATE absl::core_headers absl::strings absl::cord absl::optional)
