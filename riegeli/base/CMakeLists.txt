@@ -85,3 +85,14 @@ target_sources(parallelism
 target_link_libraries(parallelism
     PUBLIC base 
     PRIVATE absl::base absl::time absl::synchronization)
+
+
+add_library(buffer STATIC)
+target_sources(buffer
+    PUBLIC
+    $<INSTALL_INTERFACE:buffer.h>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/buffer.h>
+    PRIVATE buffer.cc)
+target_link_libraries(parallelism
+    PUBLIC base 
+    PRIVATE absl::strings absl::cord)
