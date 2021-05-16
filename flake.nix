@@ -12,7 +12,9 @@
           inherit system;
         };
     in {
-      devShell = pkgs.mkShell rec {
+      devShell = let
+        highwayhash = pkgs.callPackage ./nix/pkgs/highwayhash {};
+      in pkgs.mkShell rec {
         name = "riegeli";
         buildInputs = with pkgs; [
           # C/C++ Build Tools
@@ -23,6 +25,7 @@
 
           abseil-cpp
           protobuf
+          highwayhash
         ];
 
         shellHook = ''
