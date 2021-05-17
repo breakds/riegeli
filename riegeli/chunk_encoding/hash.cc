@@ -45,21 +45,21 @@ uint64_t Hash(absl::string_view data) {
   return result;
 }
 
-uint64_t Hash(const Chain& data) {
-  if (const absl::optional<absl::string_view> flat = data.TryFlat()) {
-    return Hash(*flat);
-  }
-  absl::InlinedVector<highwayhash::StringView, 16> fragments;
-  fragments.reserve(data.blocks().size());
-  for (const absl::string_view fragment : data.blocks()) {
-    fragments.push_back(
-        highwayhash::StringView{fragment.data(), fragment.size()});
-  }
-  highwayhash::HHResult64 result;
-  highwayhash::InstructionSets::Run<highwayhash::HighwayHashCat>(
-      kHashKey, fragments.data(), fragments.size(), &result);
-  return result;
-}
+// uint64_t Hash(const Chain& data) {
+//   if (const absl::optional<absl::string_view> flat = data.TryFlat()) {
+//     return Hash(*flat);
+//   }
+//   absl::InlinedVector<highwayhash::StringView, 16> fragments;
+//   fragments.reserve(data.blocks().size());
+//   for (const absl::string_view fragment : data.blocks()) {
+//     fragments.push_back(
+//         highwayhash::StringView{fragment.data(), fragment.size()});
+//   }
+//   highwayhash::HHResult64 result;
+//   highwayhash::InstructionSets::Run<highwayhash::HighwayHashCat>(
+//       kHashKey, fragments.data(), fragments.size(), &result);
+//   return result;
+// }
 
 }  // namespace internal
 }  // namespace riegeli

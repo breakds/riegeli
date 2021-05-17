@@ -7,7 +7,7 @@ target_sources(status
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/status.h>
     PRIVATE errno_mapping.cc status.cc)
 target_link_libraries(status
-    PRIVATE absl::status absl::strings absl::cord)
+    PUBLIC absl::status absl::strings absl::cord)
 
 
 add_library(base SHARED)
@@ -36,8 +36,7 @@ target_sources(base
 
     PRIVATE base.cc memory.cc object.cc)
 target_link_libraries(base
-    PRIVATE absl::core_headers absl::base
-    absl::status absl::strings absl::type_traits absl::cord)
+    PUBLIC absl::core_headers absl::base absl::status absl::strings absl::type_traits absl::cord)
 
 
 add_library(intrusive_ref_count INTERFACE)
@@ -59,10 +58,11 @@ target_sources(chain
     PUBLIC
     $<INSTALL_INTERFACE:chain.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/chain.h>
-    PRIVATE memory_estimator.cc)
+    PRIVATE chain.cc)
 target_link_libraries(chain
     PUBLIC base intrusive_ref_count memory_estimator
-    PRIVATE absl::base absl::container absl::meta absl::strings)
+    absl::core_headers absl::inlined_vector absl::type_traits
+    absl::strings absl::cord absl::compare absl::optional absl::span absl::raw_hash_set absl::hash)
 
 
 add_library(options_parser SHARED)

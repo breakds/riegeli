@@ -24,7 +24,7 @@ namespace riegeli {
 namespace internal {
 
 uint64_t Hash(absl::string_view data);
-uint64_t Hash(const Chain& data);
+// uint64_t Hash(const Chain& data);
 
 }  // namespace internal
 }  // namespace riegeli

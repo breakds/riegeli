@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   pname = "highwayhash";
   version = "1.0";
-  
+
   src = fetchFromGitHub {
     owner = "google";
     repo = "highwayhash";
@@ -18,7 +18,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/google/highwayhash";
     description = ''
       Strong (well-distributed and unpredictable) hashes:
-
       Portable implementation of SipHash
       HighwayHash, a 5x faster SIMD hash with security claims
     '';
